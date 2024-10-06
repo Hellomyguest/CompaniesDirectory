@@ -28,7 +28,8 @@ export const TableRow = <T extends { id: string; [key: string]: string }>({
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          border: '1px solid black',
+          borderBottom: '1px solid black',
+          borderRight: '1px solid black',
           borderLeft: 'none'
         }}
       >
@@ -40,7 +41,8 @@ export const TableRow = <T extends { id: string; [key: string]: string }>({
           sx={{
             width: column.percentWidth + '%',
             p: 1,
-            border: '1px solid black',
+            borderBottom: '1px solid black',
+            borderRight: '1px solid black',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center'

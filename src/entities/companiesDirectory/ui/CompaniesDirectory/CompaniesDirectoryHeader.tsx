@@ -9,6 +9,7 @@ import { MutableRefObject, useCallback } from 'react';
 import { addRow, deleteRows, toggleSelectAll } from '../../model/companiesDirectorySlice';
 import { useAppDispatch } from '../../../../app/store';
 import { TableRef } from '../../../../shared/ui/table/TableBody/TableBody';
+import { columns } from '../../model/companiesDirectorySettings';
 
 export const CompaniesDirectoryHeader = ({
   tableRef
@@ -37,6 +38,7 @@ export const CompaniesDirectoryHeader = ({
       selectedAllState={selectedAllState}
       handleDeleteRows={handleDeleteRows}
       handleAddRow={handleAddRow}
+      columns={columns}
     />
   );
 };

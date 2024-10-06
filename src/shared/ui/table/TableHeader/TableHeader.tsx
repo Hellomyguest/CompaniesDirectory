@@ -1,6 +1,7 @@
-import { Button, Checkbox, Divider, FormControlLabel, Stack, Typography } from '@mui/material';
+import { Box, Button, Checkbox, Divider, FormControlLabel, Stack, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { Column } from '../../../../entities/companiesDirectory/types/types';
 
 export enum SelectedAllState {
   ALL = 'all',
@@ -8,27 +9,29 @@ export enum SelectedAllState {
   PARTLY = 'partly'
 }
 
-type Props = {
+type Props<T extends { id: string; [key: string]: string }> = {
   title: string;
   toggleSelectAll: () => void;
   selectedAllState: SelectedAllState;
   handleDeleteRows: () => void;
   handleAddRow: () => void;
+  columns: Column<T>[];
 };
 
-export const TableHeader = ({
+export const TableHeader = <T extends { id: string; [key: string]: string }>({
   title,
   toggleSelectAll,
   selectedAllState,
   handleDeleteRows,
-  handleAddRow
-}: Props) => {
+  handleAddRow,
+  columns
+}: Props<T>) => {
   return (
-    <Stack gap={1} p={1}>
-      <Typography color='black' variant='h6' ml={1}>
+    <Stack gap={1} pt={1}>
+      <Typography color='black' variant='h6' ml={2}>
         {title}
       </Typography>
-      <Stack direction='row' gap={1} divider={<Divider orientation='vertical' flexItem />}>
+      <Stack direction='row' gap={1} ml={1} divider={<Divider orientation='vertical' flexItem />}>
         <FormControlLabel
           control={
             <Checkbox
@@ -52,6 +55,28 @@ export const TableHeader = ({
         >
           Удалить
         </Button>
+      </Stack>
+      <Stack
+        direction='row'
+        sx={{ borderTop: '1px solid black', borderBottom: '1px solid black', pr: '17px' }}
+      >
+        <Box sx={{ width: '56px' }} />
+        {columns.map((column) => (
+          <Box
+            key={column.property}
+            sx={{
+              width: column.percentWidth + '%',
+              p: 1,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              color: 'black',
+              borderLeft: '1px solid black'
+            }}
+          >
+            {column.title}
+          </Box>
+        ))}
       </Stack>
     </Stack>
   );
